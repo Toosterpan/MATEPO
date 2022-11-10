@@ -1,0 +1,176 @@
+import streamlit as st
+import random
+import wikipedia as w
+import requests
+from streamlit_lottie import st_lottie
+st.set_page_config(page_title="MATHSPO", page_icon=":tada:", layout="wide")
+tab1,tab2, tab3, tab4= st.tabs(["HOME","AKINATOR", "KNOW YOUR MATHEMATICIAN","MORDLETS"])
+with tab1:
+    col1,col2=st.columns(2)
+    with col1:
+        st.subheader("WELOCME TO MATHSPO")
+        st.write("AN MATHEMATICS INTEGRATED WEBSITE FOR FUN LEARNING")
+        st.write("A PLACE WITH SO MANY THIGS TO OFFER")
+        st.write("PLEASE HAVE A DARK CHOCOLATE AS IT WILL INCREASE UR MIND CALCULATING POWER") 
+        def load_lottieurl(url):
+            r = requests.get(url)
+            if r.status_code != 200:
+                return None
+            return r.json()
+        lottie_coding = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_hk63stcp.json")
+    with col2:
+        st_lottie(lottie_coding)
+with tab2:
+    st.title('MAKINATOR')
+    st.header('GUESS A NUMBER')
+    col1,col2=st.columns(2)
+    with col1:
+        st.write('ADD 10 TO UR NUMBER')
+        st.caption('if ur number is 7 then the new number is 17')
+
+        st.write('NOW MULTIPLY 2 TO THE NEW NUMBER')
+        st.write('NOW ADD 98 TO THE NEW NUMBER')
+        st.write('NOW ADD 69 TO THE NEW NUMBER')
+        st.write('NOW SUBTRACT 80 TO THE NEW NUMBER')
+        st.write("HERE'S YOUR WORKING COLUMN")
+        
+        
+    fork=10*2+98+69-80
+    with col2:
+        st.write("ENTER YOUR ANSWER HERE")
+        number = int(st.number_input('Insert a number',key=int(),min_value=0))
+        number1=number-fork
+        if number1>0:
+            st.write('The current number is ', number1)
+        else:
+            st.write("The answer is wrong")
+with tab3:
+    def wikipedia():
+        try:
+            
+            search=st.text_input("what to search",key=str)
+            results = w.summary(f'{search}', sentences=80 )
+            st.write(results)
+
+        except Exception as e:
+            st.caption("NO RESULTS PLEASE CHECK THE INPUT")
+            pass
+    with st.container():
+        st.title("KNOW YOUR MATHEMATICIAN")
+        st.caption("Ws know that it can be hard to search a FAMOUS MATHEMATICIAN ")
+        st.caption("So we are here to help you search a simple WIKI SEARCH for the same.")
+        
+        
+        a2=wikipedia()
+        def load_lottieuril(urkl):
+            r = requests.get(urkl)
+            if r.status_code != 200:
+                return None
+            return r.json()
+        lottie_codings = load_lottieuril("https://assets5.lottiefiles.com/packages/lf20_ibedtbi9.json")
+    
+        st_lottie(lottie_codings)
+with tab4:
+    col3,col4=st.columns(2)
+    work=st.number_input("enter any random number to increse the level.From 1-10 is recommended",min_value=0)
+    a1=work+1
+    b1=work+11
+    c1=work+9-10
+    d1=work+10-7
+    e1=work+1+21
+    f1=work+1+1
+    g1=work+1+8
+
+    l=[]   
+    l.append([a1,b1,c1,d1,e1,f1,g1])
+    def numberal(number):
+        global l
+        for i in number:
+            if i in l:
+               st.caption("i exist in the equation")
+         
+
+
+    with col3:
+        st.title("MORDLETS")
+        st.write("GUESSING THE NUMBER HAS NEVER BEEN SO FUN")
+        
+
+        st.write("CAN YOU GUESS THE NUMBER?")
+        st.caption("What you can do is using the given hints you will have to guess the equation")
+        st.caption("EG: 12*20//20-10")
+        st.caption("We will only use  +, - , AND * .")
+        
+        
+    with col4:
+
+        with st.container():
+            least=[a1,b1,c1,d1,e1,g1,f1]
+            
+
+            ans=""
+            
+            
+            number=a1+b1+c1+d1+e1+f1+g1
+            a,b,c,d,e,f,g=str(a1),str(b1),str(c1),str(d1),str(e1),str(f1),str(g1)
+
+            if number%3==0:
+                ans=""+str(a)+"+"+str(b)+"-"+str(c)+"*"+str(d)+"+"+str(f)+"-"+str(g)
+                hint="order of operators is + - * + -"
+                sum=eval(ans)
+                st.write(hint)
+                st.write("ANSWER TO THE EQUATION IS",sum)
+                
+            elif number%3==1:
+                ans=""+a+"-"+b+"*"+c+"+"+d+"+"+f+"+"+g
+                hint="order of operators is - * + + +"
+                sum=eval(ans)
+                st.write(hint)
+                st.write("ANSWER TO THE EQUATION IS",sum)
+            elif number%3==2:
+                ans=""+a+"*"+b+"+"+c+"-"+d+"+"+f+"+"+g
+                hint="order of operators is * + - + +"
+                sum=eval(ans)
+                st.write(hint)
+                st.write("ANSWER TO THE EQUATION IS",sum)
+            question=ans
+
+            st.write("CAN YOU DO THE CHALLENGE IN 6 TIMES")
+
+
+            z=0
+            while z<14:
+                alphabets="abcdefghijklmnopqrstuvwxyz"
+                
+
+                r=st.text_input(" enter the expression",key=str(alphabets[z]))
+                if r==question :
+                    break
+                else:
+                    for i in question:
+                        for k in least:
+                            if i==k:
+                               st.caption(i,"exist in the equation")
+                z+=1
+                
+
+
+                
+                if z==12:
+                    break
+                     
+            if st.button("ANSWER"):
+                st.write("THE ANSWER IS",ans)
+        
+
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+primaryColor="#F63366"
+backgroundColor="#FFFFFF"
+secondaryBackgroundColor="#F0F2F6"
+textColor="#262730"
+font="sans serif"
